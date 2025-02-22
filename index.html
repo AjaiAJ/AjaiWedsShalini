@@ -67,6 +67,7 @@
 						<li><a href="index.html#fh5co-couple">About Us</a></li>					
 						<li><a href="index.html#fh5co-event">Events</a></li>
 						<li><a href="index.html#fh5co-location">Location</a></li>
+						<li><a href="index.html#fh5co-started">Reminder</a></li>
 					</ul>
 				</div>
 			</div>
@@ -296,6 +297,75 @@
 
 	</div>
 
+
+<div id="fh5co-started" class="fh5co-bg" style="background-image:url(images/img_bg_4.jpg);">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+					<h1> <font color="#ffffff"> Kandipa vandhudanum ok va ? </font> </h1>
+					<p>Indha form ah fill panunga, Neenga kekra time ku indha system automatic ah email reminder anupidum ungalukku.</p>
+				</div>
+			</div>
+			<div class="row animate-box">
+				<div class="col-md-10 col-md-offset-1">
+					<form class="form-inline" id="reminderForm">
+						<div class="col-md-4 col-sm-4">
+							<div class="form-group">
+								<label for="name" class="sr-only">Name</label>
+								<input type="name" class="form-control" id="name" placeholder="Name">
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<div class="form-group">
+								<label for="email" class="sr-only">Email</label>
+								<input type="email" class="form-control" id="email" placeholder="Email">
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<div class="form-group">
+								<label for="email" class="sr-only">Yevalo neram munadi ungalukku email anupanum ?</label>
+								<select name="hours_before" id="hours_before" class="form-control">
+									<option value="1">1 hour</option>
+									<option value="2">2 hour</option>
+									<option value="3">3 hour</option>
+									<option value="4">4 hour</option>
+									<option value="5">5 hour</option>
+									<option value="6">6 hour</option>
+									<option value="7">7 hour</option>
+									<option value="8">8 hour</option>
+									<option value="9">9 hour</option>
+									<option value="10">10 hour</option>
+									<option value="11">11 hour</option>
+									<option value="12">12 hour</option>
+									<option value="13">13 hour</option>
+									<option value="14">14 hour</option>
+									<option value="15">15 hour</option>
+									<option value="16">16 hour</option>
+									<option value="17">17 hour</option>
+									<option value="18">18 hour</option>
+									<option value="19">19 hour</option>
+									<option value="20">20 hour</option>
+									<option value="21">21 hour</option>
+									<option value="22">22 hour</option>
+									<option value="23">23 hour</option>
+									<option value="24">24 hour</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<button type="button" onclick="submitForm()" class="btn btn-default btn-block">Submit</button>
+
+<div id="responseMessage"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
@@ -312,6 +382,7 @@
 	<script src="js/owl.carousel.min.js"></script>
 	<!-- countTo -->
 	<script src="js/jquery.countTo.js"></script>
+
 
 	<!-- Stellar -->
 	<script src="js/jquery.stellar.min.js"></script>
@@ -364,6 +435,44 @@ $('#simply-countdown-losange').simplyCountdown({
     day: targetDate.getDate(),
     enableUtc: false
 });
+
+function submitForm() {
+
+	if ( document.getElementById("name").value == '' || document.getElementById("email").value == '' ) {
+
+        document.getElementById("responseMessage").innerHTML = `<p style="color: red;">Please form ah fill panunga.</p>`;
+	} else {
+
+
+    // Get form values
+    let formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        hours_before: document.getElementById("hours_before").value
+    };
+
+    // Send data using fetch
+    fetch("https://omagencyioc.com/addAjaiWedReminder.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("responseMessage").innerHTML = `<p style="color: white;">${data.message}</p>`;
+        document.getElementById("reminderForm").reset(); // Reset form after successful submission
+    })
+    .catch(error => {
+
+    	console.log(error);
+        document.getElementById("responseMessage").innerHTML = `<p style="color: red;">Failed to save reminder</p>`;
+    });
+}
+
+}
+
 
 </script>
 
