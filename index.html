@@ -474,9 +474,10 @@ function submitForm() {
 Swal.fire({
     icon: 'error', 
     title: 'Error!',
-    html: '<p style="color: red;">Please form ah fill panunga.</p>',
+    html: '<p style="color: red;font-size:18px">Please form ah fill panunga.</p>',
     confirmButtonText: 'OK',
-    width: '600px' 
+    width: '600px',
+    height: '500px'
 });
 
 	} else {
@@ -502,9 +503,10 @@ Swal.fire({
 	    Swal.fire({
 	         icon: 'success', 
     		 title: "",
-	         html: '<p style="color: black;">'+data.message+'</p>',
+	         html: '<p style="color: black;font-size:18px">'+data.message+'</p>',
     		 confirmButtonText: 'OK',
-	         width: '600px'
+	         width: '600px',
+	         height: '500px'
 	    });
 
         document.getElementById("reminderForm").reset(); // Reset form after successful submission
