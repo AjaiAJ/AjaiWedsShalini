@@ -379,6 +379,7 @@
 	<!-- countTo -->
 	<script src="js/jquery.countTo.js"></script>
 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- Stellar -->
 	<script src="js/jquery.stellar.min.js"></script>
@@ -470,7 +471,13 @@ function submitForm() {
 
 	if ( document.getElementById("name").value == '' || document.getElementById("email").value == '' ) {
 
-        document.getElementById("responseMessage").innerHTML = `<p style="color: red;">Please form ah fill panunga.</p>`;
+Swal.fire({
+    icon: 'error', 
+    title: 'Error!',
+    html: '<p style="color: red;">Please form ah fill panunga.</p>',
+    confirmButtonText: 'OK'
+});
+
 	} else {
 
 
@@ -491,7 +498,13 @@ function submitForm() {
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById("responseMessage").innerHTML = `<p style="color: white;">${data.message}</p>`;
+	    Swal.fire({
+	         icon: 'success', 
+    		 title: data.message,
+	         html: '<p style="color: green;">Form successfully submitted!</p>',
+    		 confirmButtonText: 'OK'
+	    });
+
         document.getElementById("reminderForm").reset(); // Reset form after successful submission
     })
     .catch(error => {
