@@ -475,7 +475,8 @@ Swal.fire({
     icon: 'error', 
     title: 'Error!',
     html: '<p style="color: red;">Please form ah fill panunga.</p>',
-    confirmButtonText: 'OK'
+    confirmButtonText: 'OK',
+    width: '400px' 
 });
 
 	} else {
@@ -500,9 +501,10 @@ Swal.fire({
     .then(data => {
 	    Swal.fire({
 	         icon: 'success', 
-    		 title: data.message,
-	         html: '<p style="color: green;">Form successfully submitted!</p>',
-    		 confirmButtonText: 'OK'
+    		 title: "",
+	         html: '<p style="color: black;">'+data.message+'</p>',
+    		 confirmButtonText: 'OK',
+	         width: '400px'
 	    });
 
         document.getElementById("reminderForm").reset(); // Reset form after successful submission
