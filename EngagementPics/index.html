@@ -3,100 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Drive Image Slider</title>
+    <title>Google Drive Image Gallery</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
         }
-        .slider-container {
-            position: relative;
-            width: 80%;
-            max-width: 600px;
-            margin: 50px auto;
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 20px;
         }
-        img {
+        .gallery img {
             width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        /* Full-Screen View */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 5px;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
         }
         .arrow {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 30px;
             color: white;
-            border: none;
-            padding: 10px;
             cursor: pointer;
-            font-size: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
         }
-        .left {
-            left: 0;
-            border-radius: 5px 0 0 5px;
+        .arrow-left {
+            left: 10px;
         }
-        .right {
-            right: 0;
-            border-radius: 0 5px 5px 0;
+        .arrow-right {
+            right: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h2>Enga photos ah paarunga!</h2>
-    <div class="slider-container">
-        <button class="arrow left" onclick="prevImage()">&#10094;</button>
-        <img id="sliderImage" src="" alt="Loading images...">
-        <button class="arrow right" onclick="nextImage()">&#10095;</button>
+    <h2>Enga Engagement photos ah paarunga!</h2>
+    <div class="gallery" id="gallery"></div>
+
+    <!-- Full-Screen View -->
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">✖</span>
+        <span class="arrow arrow-left" onclick="prevImage()">⬅</span>
+        <img id="lightbox-img" src="">
+        <span class="arrow arrow-right" onclick="nextImage()">➡</span>
     </div>
-    <p id="counter"></p>
 
     <script>
-        const folderId = "1AoTqZJrXHmhiqV91k3-DdQkyh68lYD3J";  // Your Google Drive Folder ID
-        const apiKey = "AIzaSyDMRHxG100W16ZxTAx8NP5UVTG_gGX-gTs";  // Replace with your API Key
-        let imageList = [];
+        const folderId = "1AoTqZJrXHmhiqV91k3-DdQkyh68lYD3J"; // Replace with your actual folder ID
+        const apiKey = "AIzaSyDMRHxG100W16ZxTAx8NP5UVTG_gGX-gTs"; // Replace with your Google Drive API Key
+
+        const gallery = document.getElementById("gallery");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        let images = [];
         let currentIndex = 0;
-        const sliderImage = document.getElementById("sliderImage");
-        const counter = document.getElementById("counter");
 
-        async function fetchImages() {
-            const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`;
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                if (data.files) {
-                    imageList = data.files
-                        .filter(file => file.mimeType.startsWith("image/"))
-                        .map(file => `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`);
+async function fetchImages() {
+    const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,thumbnailLink)`;
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    images = data.files.map(file => ({
+        thumbnail: file.thumbnailLink,  // Small image for preview
+        full: `https://lh3.googleusercontent.com/d/${file.id}` // Fix for 403 issue
+    }));
 
-                    if (imageList.length > 0) {
-                        updateImage();
-                    } else {
-                        sliderImage.alt = "No images found.";
-                    }
-                }
-            } catch (error) {
-                console.error("Error fetching images:", error);
+    displayImages();
+}
+
+
+        // Display images in the grid
+        function displayImages() {
+            gallery.innerHTML = "";
+            images.forEach((img, index) => {
+                const imgElement = document.createElement("img");
+                imgElement.src = img.thumbnail;
+                imgElement.alt = "Image " + (index + 1);
+                imgElement.onclick = () => openLightbox(index);
+                gallery.appendChild(imgElement);
+            });
+        }
+
+        // Open full-screen lightbox
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = images[index].full;
+            lightbox.style.display = "flex";
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.style.display = "none";
+        }
+
+        // Navigate images
+        function prevImage() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                lightboxImg.src = images[currentIndex].full;
             }
         }
 
-        function updateImage() {
-            sliderImage.src = imageList[currentIndex];
-            counter.innerText = `${currentIndex + 1} / ${imageList.length}`;
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex === 0) ? imageList.length - 1 : currentIndex - 1;
-            updateImage();
-        }
-
         function nextImage() {
-            currentIndex = (currentIndex === imageList.length - 1) ? 0 : currentIndex + 1;
-            updateImage();
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                lightboxImg.src = images[currentIndex].full;
+            }
         }
 
+        // Fetch images on page load
         fetchImages();
     </script>
 
