@@ -80,7 +80,7 @@
 						<div class="display-tc animate-box" data-animate-effect="fadeIn"> <br/>
 							<h1>Ajai &amp; Shalini</h1>
 							<br/>
-							<h2>We Are Getting Married. Our Engagement will be within </h2>
+							<h2>Our Wedding is Coming Up! Event Starts In:</h2>
 							<div class="simply-countdown simply-countdown-one"></div>
 							<p>
 							<a href="#" class="btn btn-default btn-sm" onclick="addToGoogleCalendar(event)">Save the date</a>
@@ -436,8 +436,8 @@ document.getElementById("homeBtn").addEventListener("click", function () {
     const title = encodeURIComponent("Ajai Shalini Marriage");
     const details = encodeURIComponent("Ajai Shalini Marriage.");
     const location = encodeURIComponent("Red Hills");
-    const startDate = "20250309T123000Z"; // YYYYMMDDTHHMMSSZ (UTC format)
-    const endDate = "20250309T140000Z";   // YYYYMMDDTHHMMSSZ (UTC format)
+    const startDate = "20250827T123000Z"; // YYYYMMDDTHHMMSSZ (UTC format)
+    const endDate = "20250828T033000Z";   // YYYYMMDDTHHMMSSZ (UTC format)
 
     // Google Calendar URL
     const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
@@ -446,7 +446,7 @@ document.getElementById("homeBtn").addEventListener("click", function () {
     window.open(googleCalendarUrl, "_blank");
   }
 
-var targetDate = new Date(2025, 2, 10); 
+var targetDate = new Date(2025, 8, 27); 
 
 var currentDate = new Date();
 var timeDifference = targetDate - currentDate;
