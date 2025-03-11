@@ -97,13 +97,13 @@
 
     <h2>Enga Engagement photos ah paarunga!</h2>
 
+    <div class="gallery" id="gallery"></div>
+
 <div id="progress-bar-container">
     <div id="progress-bar"></div>
 </div>
 <div class="gallery"></div>
 
-
-    <div class="gallery" id="gallery"></div>
 
     <!-- Full-Screen View -->
     <div class="lightbox" id="lightbox">
@@ -117,11 +117,12 @@
         const folderId = "1AoTqZJrXHmhiqV91k3-DdQkyh68lYD3J"; // Replace with your actual folder ID
         const apiKey = "AIzaSyDMRHxG100W16ZxTAx8NP5UVTG_gGX-gTs"; // Replace with your Google Drive API Key
 
-        const gallery = document.getElementById("gallery");
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightbox-img");
-        let images = [];
-        let currentIndex = 0;
+const gallery = document.getElementById("gallery");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+let images = [];
+let currentIndex = 0;
+
 async function fetchAllImages(pageToken = "", progress = 0) {
     let allImages = [];
     let url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,thumbnailLink),nextPageToken`;
@@ -133,7 +134,7 @@ async function fetchAllImages(pageToken = "", progress = 0) {
     const response = await fetch(url);
     const data = await response.json();
 
-    allImages = [...data.files.map(file => ({
+    allImages = [...data.files.map((file) => ({
         thumbnail: file.thumbnailLink,
         full: `https://lh3.googleusercontent.com/d/${file.id}`
     }))];
@@ -152,6 +153,7 @@ async function fetchAllImages(pageToken = "", progress = 0) {
 
 // Call the function and display images
 async function loadImages() {
+    document.getElementById("progress-bar-container").style.display = "block";
     document.getElementById("progress-bar").style.width = "0%"; // Reset progress
 
     images = await fetchAllImages();
@@ -161,7 +163,6 @@ async function loadImages() {
 
     displayImages();
 }
-
 
 function displayImages() {
     const gallery = document.querySelector(".gallery");
@@ -173,46 +174,42 @@ function displayImages() {
 
         imgWrapper.innerHTML = `
             <span class="image-number">${index + 1}</span>
-            <img src="${img.thumbnail}" alt="Image ${index + 1}" onclick="viewFullImage('${img.full}')">
+            <img src="${img.thumbnail}" alt="Image ${index + 1}" onclick="openLightbox(${index})">
         `;
 
         gallery.appendChild(imgWrapper);
     });
 }
 
+// Open full-screen lightbox
+function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = images[index].full;
+    lightbox.style.display = "flex";
+}
 
-        // Open full-screen lightbox
-        function openLightbox(index) {
-            currentIndex = index;
-            lightboxImg.src = images[index].full;
-            lightbox.style.display = "flex";
-        }
+// Close lightbox
+function closeLightbox() {
+    lightbox.style.display = "none";
+}
 
-        // Close lightbox
-        function closeLightbox() {
-            lightbox.style.display = "none";
-        }
+// Navigate images
+function prevImage() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        lightboxImg.src = images[currentIndex].full;
+    }
+}
 
-        // Navigate images
-        function prevImage() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                lightboxImg.src = images[currentIndex].full;
-            }
-        }
+function nextImage() {
+    if (currentIndex < images.length - 1) {
+        currentIndex++;
+        lightboxImg.src = images[currentIndex].full;
+    }
+}
 
-        function nextImage() {
-            if (currentIndex < images.length - 1) {
-                currentIndex++;
-                lightboxImg.src = images[currentIndex].full;
-            }
-        }
+loadImages();
 
-        // Fetch images on page load
-
-//        fetchImages();
-
-        loadImages();
 
 
     </script>
