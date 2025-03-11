@@ -99,31 +99,56 @@
         let images = [];
         let currentIndex = 0;
 
-async function fetchImages() {
-    const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,thumbnailLink)`;
+async function fetchAllImages(pageToken = "") {
+    let allImages = [];
+    let url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,thumbnailLink),nextPageToken`;
+
+    if (pageToken) {
+        url += `&pageToken=${pageToken}`;
+    }
+
     const response = await fetch(url);
     const data = await response.json();
-    
-    images = data.files.map(file => ({
-        thumbnail: file.thumbnailLink,  // Small image for preview
-        full: `https://lh3.googleusercontent.com/d/${file.id}` // Fix for 403 issue
-    }));
 
+    // Add new images to the list
+    allImages = [...data.files.map(file => ({
+        thumbnail: file.thumbnailLink,
+        full: `https://lh3.googleusercontent.com/d/${file.id}`
+    }))];
+
+    // If there are more pages, fetch again
+    if (data.nextPageToken) {
+        const nextImages = await fetchAllImages(data.nextPageToken);
+        allImages = allImages.concat(nextImages);
+    }
+
+    return allImages;
+}
+
+// Call the function and display images
+async function loadImages() {
+    images = await fetchAllImages();
     displayImages();
 }
 
 
-        // Display images in the grid
-        function displayImages() {
-            gallery.innerHTML = "";
-            images.forEach((img, index) => {
-                const imgElement = document.createElement("img");
-                imgElement.src = img.thumbnail;
-                imgElement.alt = "Image " + (index + 1);
-                imgElement.onclick = () => openLightbox(index);
-                gallery.appendChild(imgElement);
-            });
-        }
+function displayImages() {
+    const gallery = document.querySelector(".gallery");
+    gallery.innerHTML = ""; // Clear previous images
+
+    images.forEach((img, index) => {
+        const imgWrapper = document.createElement("div");
+        imgWrapper.classList.add("image-container");
+
+        imgWrapper.innerHTML = `
+            <span class="image-number">${index + 1}</span>
+            <img src="${img.thumbnail}" alt="Image ${index + 1}" onclick="viewFullImage('${img.full}')">
+        `;
+
+        gallery.appendChild(imgWrapper);
+    });
+}
+
 
         // Open full-screen lightbox
         function openLightbox(index) {
@@ -153,7 +178,11 @@ async function fetchImages() {
         }
 
         // Fetch images on page load
-        fetchImages();
+
+//        fetchImages();
+
+        loadImages();
+
     </script>
 
 </body>
