@@ -68,7 +68,24 @@
         .arrow-right {
             right: 10px;
         }
+
+#progress-bar-container {
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 5px;
+    background: #4caf50;
+    transition: width 0.2s ease-in-out;
+}
        
+
 @media (max-width: 600px) {
     .gallery {
         grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
@@ -79,6 +96,13 @@
 <body>
 
     <h2>Enga Engagement photos ah paarunga!</h2>
+
+<div id="progress-bar-container">
+    <div id="progress-bar"></div>
+</div>
+<div class="gallery"></div>
+
+
     <div class="gallery" id="gallery"></div>
 
     <!-- Full-Screen View -->
@@ -98,8 +122,7 @@
         const lightboxImg = document.getElementById("lightbox-img");
         let images = [];
         let currentIndex = 0;
-
-async function fetchAllImages(pageToken = "") {
+async function fetchAllImages(pageToken = "", progress = 0) {
     let allImages = [];
     let url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,thumbnailLink),nextPageToken`;
 
@@ -110,15 +133,17 @@ async function fetchAllImages(pageToken = "") {
     const response = await fetch(url);
     const data = await response.json();
 
-    // Add new images to the list
     allImages = [...data.files.map(file => ({
         thumbnail: file.thumbnailLink,
         full: `https://lh3.googleusercontent.com/d/${file.id}`
     }))];
 
-    // If there are more pages, fetch again
+    // Update progress bar
+    progress += (100 / 3); // Assuming 300 images, update by ~33% per batch
+    document.getElementById("progress-bar").style.width = `${Math.min(progress, 100)}%`;
+
     if (data.nextPageToken) {
-        const nextImages = await fetchAllImages(data.nextPageToken);
+        const nextImages = await fetchAllImages(data.nextPageToken, progress);
         allImages = allImages.concat(nextImages);
     }
 
@@ -127,7 +152,13 @@ async function fetchAllImages(pageToken = "") {
 
 // Call the function and display images
 async function loadImages() {
+    document.getElementById("progress-bar").style.width = "0%"; // Reset progress
+
     images = await fetchAllImages();
+
+    // Hide progress bar after loading
+    document.getElementById("progress-bar-container").style.display = "none";
+
     displayImages();
 }
 
@@ -182,6 +213,7 @@ function displayImages() {
 //        fetchImages();
 
         loadImages();
+
 
     </script>
 
