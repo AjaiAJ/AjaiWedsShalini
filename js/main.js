@@ -20,14 +20,14 @@
 
 
 	var offcanvasMenu = function() {
-
+/*
 		$('#page').prepend('<div id="fh5co-offcanvas" />');
 		$('#page').prepend('<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle fh5co-nav-white"><i></i></a>');
 		var clone1 = $('.menu-1 > ul').clone();
 		$('#fh5co-offcanvas').append(clone1);
 		var clone2 = $('.menu-2 > ul').clone();
 		$('#fh5co-offcanvas').append(clone2);
-
+*/
 		$('#fh5co-offcanvas .has-dropdown').addClass('offcanvas-has-dropdown');
 		$('#fh5co-offcanvas')
 			.find('li')
@@ -64,7 +64,7 @@
 
 
 	var burgerMenu = function() {
-
+/*
 		$('body').on('click', '.js-fh5co-nav-toggle', function(event){
 			var $this = $(this);
 
@@ -78,6 +78,7 @@
 			event.preventDefault();
 
 		});
+  */
 	};
 
 
