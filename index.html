@@ -57,6 +57,13 @@
     		display: flex;
 		justify-content: center;
 	}
+
+.responsive-video {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+	
 	@media (max-width: 900px) { 
   #fh5co-header {
     background-image: url('images/ajai_shalu.webp') !important;
@@ -639,8 +646,8 @@
 		</div>
 	<br/><br/><br/>
 <center>
-	<video controls>
-	  <source src="suryaPunch.mp4" type="video/mp4" poster="videoThumbnail.jpg">
+	<video class="responsive-video" controls poster="videoThumbnail.jpg">
+	  <source src="suryaPunch.mp4" type="video/mp4">
 	</video>
 </center>	
 	</div>
