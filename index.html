@@ -1260,12 +1260,11 @@
 
 	<script>
 
-	// Function to handle smooth scrolling
 function smoothScroll(targetId) {
     const target = document.getElementById(targetId);
     if (target) {
         window.scrollTo({
-            top: target.offsetTop - 50, // Adjust for any fixed header
+            top: target.offsetTop - 50,
             behavior: "smooth"
         });
     }
@@ -1298,21 +1297,18 @@ document.getElementById("homeBtn").addEventListener("click", function () {
   function addToGoogleCalendar(e) {
     e.preventDefault();
 
-    // Define event details
     const title = encodeURIComponent("Ajai Shalini Marriage");
     const details = encodeURIComponent("Ajai Shalini Marriage.");
     const location = encodeURIComponent("Red Hills");
     const startDate = "20250827T123000Z"; // YYYYMMDDTHHMMSSZ (UTC format)
     const endDate = "20250828T033000Z";   // YYYYMMDDTHHMMSSZ (UTC format)
 
-    // Google Calendar URL
     const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
 
-    // Open in new tab
     window.open(googleCalendarUrl, "_blank");
   }
 
-var targetDate = new Date(2025, 8, 27); 
+var targetDate = new Date(2025, 7, 27); 
 
 var currentDate = new Date();
 var timeDifference = targetDate - currentDate;
