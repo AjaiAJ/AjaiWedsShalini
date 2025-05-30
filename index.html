@@ -1300,8 +1300,8 @@ document.getElementById("homeBtn").addEventListener("click", function () {
     const title = encodeURIComponent("Ajai Shalini Marriage");
     const details = encodeURIComponent("Ajai Shalini Marriage.");
     const location = encodeURIComponent("Red Hills");
-    const startDate = "20250827T123000Z"; // YYYYMMDDTHHMMSSZ (UTC format)
-    const endDate = "20250828T033000Z";   // YYYYMMDDTHHMMSSZ (UTC format)
+    const startDate = "20250827T123000Z";
+    const endDate = "20250828T033000Z";
 
     const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
 
@@ -1344,15 +1344,12 @@ Swal.fire({
 
 	} else {
 
-
-    // Get form values
     let formData = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
         hours_before: document.getElementById("hours_before").value
     };
 
-    // Send data using fetch
     fetch("https://omagencyioc.com/addAjaiWedReminder.php", {
         method: "POST",
         headers: {
@@ -1371,7 +1368,7 @@ Swal.fire({
 	         height: '500px'
 	    });
 
-        document.getElementById("reminderForm").reset(); // Reset form after successful submission
+        document.getElementById("reminderForm").reset();
     })
     .catch(error => {
 
