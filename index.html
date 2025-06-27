@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,22 +53,96 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 <style>
-	.pull-center {
-    		display: flex;
-		justify-content: center;
-	}
+    .pull-center {
+        display: flex;
+        justify-content: center;
+    }
 
-.responsive-video {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-}
-	
-	@media (max-width: 900px) { 
-  #fh5co-header {
-    background-image: url('images/ajai_shalu.webp') !important;
-  }
-}
+    .responsive-video {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
+
+    @media (max-width: 900px) {
+        #fh5co-header {
+            background-image: url('images/ajai_shalu.webp') !important;
+        }
+    }
+
+    /* Enhanced styles for better appearance */
+    .fh5co-heading h1 {
+        font-size: 60px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        font-family: 'Sacramento', cursive;
+    }
+
+    .couple-half img {
+        transition: transform 0.3s ease;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .couple-half img:hover {
+        transform: scale(1.05);
+    }
+
+    .heart {
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .event-wrap {
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .event-wrap:hover {
+        transform: translateY(-5px);
+    }
+
+    #fh5co-gallery-list li {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    #fh5co-gallery-list li:hover {
+        transform: scale(1.02);
+    }
+
+    .btn {
+        transition: all 0.3s ease;
+        border-radius: 25px;
+        padding: 10px 25px;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .simply-countdown-one {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .simply-section {
+        transition: transform 0.3s ease;
+    }
+
+    .simply-section:hover {
+        transform: scale(1.05);
+    }
 </style>
 	</head>
 	<body>
@@ -581,71 +655,71 @@
 		
 
 <div id="fh5co-started" class="fh5co-bg" style="background-image:url(images/img_bg_4.jpg);">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h1> <font color="#ffffff"> Kandipa vandhudanum ok va ? </font> </h1>
-					<p>Indha form ah fill panunga, Neenga kekra time ku indha site la irunndhu automatic ah email reminder vandhudum ungalukku.</p>
-				</div>
-			</div>
-			<div class="row animate-box">
-				<div class="col-md-10 col-md-offset-1">
-					<form class="form-inline" id="reminderForm">
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<label for="name" class="sr-only">Name</label>
-								<input type="name" class="form-control" id="name" placeholder="Name">
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<label for="email" class="sr-only">Email</label>
-								<input type="email" class="form-control" id="email" placeholder="Email">
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-								<label for="email" class="sr-only">Yevalo neram munadi ungalukku email anupanum ?</label>
-								<select name="hours_before" id="hours_before" class="form-control">
-									<option value="1">1 hour Before</option>
-									<option value="2">2 hour Before</option>
-									<option value="3">3 hour Before</option>
-									<option value="4">4 hour Before</option>
-									<option value="5">5 hour Before</option>
-									<option value="6">6 hour Before</option>
-									<option value="7">7 hour Before</option>
-									<option value="8">8 hour Before</option>
-									<option value="9">9 hour Before</option>
-									<option value="10">10 hour Before</option>
-									<option value="11">11 hour Before</option>
-									<option value="12">12 hour Before</option>
-									<option value="13">13 hour Before</option>
-									<option value="14">14 hour Before</option>
-									<option value="15">15 hour Before</option>
-									<option value="16">16 hour Before</option>
-									<option value="17">17 hour Before</option>
-									<option value="18">18 hour Before</option>
-									<option value="19">19 hour Before</option>
-									<option value="20">20 hour Before</option>
-									<option value="21">21 hour Before</option>
-									<option value="22">22 hour Before</option>
-									<option value="23">23 hour Before</option>
-									<option value="24">24 hour Before</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-							<button type="button" onclick="submitForm()" class="btn btn-default btn-block">Submit</button>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row animate-box">
+            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                <h1 class="text-white">Kandipa vandhudanum ok va ?</h1>
+                <p>Indha form ah fill panunga, Neenga kekra time ku indha site la irunndhu automatic ah email reminder vandhudum ungalukku.</p>
+            </div>
+        </div>
+        <div class="row animate-box">
+            <div class="col-md-10 col-md-offset-1">
+                <form class="form-inline" id="reminderForm">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="name" class="sr-only">Name</label>
+                            <input type="name" class="form-control" id="name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Yevalo neram munadi ungalukku email anupanum ?</label>
+                            <select name="hours_before" id="hours_before" class="form-control">
+                                <option value="1">1 hour Before</option>
+                                <option value="2">2 hour Before</option>
+                                <option value="3">3 hour Before</option>
+                                <option value="4">4 hour Before</option>
+                                <option value="5">5 hour Before</option>
+                                <option value="6">6 hour Before</option>
+                                <option value="7">7 hour Before</option>
+                                <option value="8">8 hour Before</option>
+                                <option value="9">9 hour Before</option>
+                                <option value="10">10 hour Before</option>
+                                <option value="11">11 hour Before</option>
+                                <option value="12">12 hour Before</option>
+                                <option value="13">13 hour Before</option>
+                                <option value="14">14 hour Before</option>
+                                <option value="15">15 hour Before</option>
+                                <option value="16">16 hour Before</option>
+                                <option value="17">17 hour Before</option>
+                                <option value="18">18 hour Before</option>
+                                <option value="19">19 hour Before</option>
+                                <option value="20">20 hour Before</option>
+                                <option value="21">21 hour Before</option>
+                                <option value="22">22 hour Before</option>
+                                <option value="23">23 hour Before</option>
+                                <option value="24">24 hour Before</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <button type="button" onclick="submitForm()" class="btn btn-default btn-block">Submit</button>
 
 <div id="responseMessage"></div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	<!--
-	<br/><br/><br/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <!--
+    <br/><br/><br/>
 <center>
 	<video class="responsive-video" controls poster="videoThumbnail.jpg">
 	  <source src="suryaPunch.mp4" type="video/mp4">
@@ -753,38 +827,39 @@
     <tr><td>1</td><td>Redhills Bus Terminus</td></tr>
     <tr><td>2</td><td>Redhills Market</td></tr>
     <tr><td>3</td><td>Ayurveda Ashramam</td></tr>
-    <tr><td>4</td><td>Sri Nallaghu Polytechnic College</td></tr>
-    <tr><td>5</td><td>Kavangarai</td></tr>
-    <tr><td>6</td><td>Puzhal Jail</td></tr>
-    <tr><td>7</td><td>Puzhal Camp</td></tr>
-    <tr><td>8</td><td>Kathirvedu</td></tr>
-    <tr><td>9</td><td>Thirumal Srinivas Nagar</td></tr>
-    <tr><td>10</td><td>Secretariat Colony</td></tr>
-    <tr><td>11</td><td>Retteri</td></tr>
-    <tr><td>12</td><td>Kolathur Bypass</td></tr>
-    <tr><td>13</td><td>Padma Nagar</td></tr>
-    <tr><td>14</td><td>Kolathur</td></tr>
-    <tr><td>15</td><td>Welding Pattarai</td></tr>
-    <tr><td>16</td><td>Kolathur Anna Salai</td></tr>
-    <tr><td>17</td><td>S.R.B Colony</td></tr>
-    <tr><td>18</td><td>70 Feet Road</td></tr>
-    <tr><td>19</td><td>Agaram Junction</td></tr>
-    <tr><td>20</td><td>Venus Theatre</td></tr>
-    <tr><td>21</td><td>Chembium Old Post Office</td></tr>
-    <tr><td>22</td><td>Lourde School</td></tr>
-    <tr><td>23</td><td>Mangalapuri</td></tr>
-    <tr><td>24</td><td>Jamalia</td></tr>
-    <tr><td>25</td><td>Mettupalayam</td></tr>
-    <tr><td>26</td><td>Pulianthope</td></tr>
-    <tr><td>27</td><td>Pattalam</td></tr>
-    <tr><td>28</td><td>Vasanthi Theatre</td></tr>
-    <tr><td>29</td><td>Veterinary Hospital</td></tr>
-    <tr><td>30</td><td>Periyamedu</td></tr>
-    <tr><td>31</td><td>Central Station</td></tr>
-    <tr><td>32</td><td>Nurse Quarters</td></tr>
-    <tr><td>33</td><td>Chennai Fort Railway Station</td></tr>
-    <tr><td>34</td><td>High Court</td></tr>
-    <tr><td>35</td><td>Broadway</td></tr>
+    <tr><td>4</td><td>Samiyar Madam</td></tr>
+    <tr><td>5</td><td>Sri Nallaghu Polytechnic College</td></tr>
+    <tr><td>6</td><td>Kavangarai</td></tr>
+    <tr><td>7</td><td>Puzhal Jail</td></tr>
+    <tr><td>8</td><td>Puzhal Camp</td></tr>
+    <tr><td>9</td><td>Kathirvedu</td></tr>
+    <tr><td>10</td><td>Thirumal Srinivas Nagar</td></tr>
+    <tr><td>11</td><td>Secretariat Colony</td></tr>
+    <tr><td>12</td><td>Retteri</td></tr>
+    <tr><td>13</td><td>Kolathur Bypass</td></tr>
+    <tr><td>14</td><td>Padma Nagar</td></tr>
+    <tr><td>15</td><td>Kolathur</td></tr>
+    <tr><td>16</td><td>Welding Pattarai</td></tr>
+    <tr><td>17</td><td>Kolathur Anna Salai</td></tr>
+    <tr><td>18</td><td>S.R.B Colony</td></tr>
+    <tr><td>19</td><td>70 Feet Road</td></tr>
+    <tr><td>20</td><td>Agaram Junction</td></tr>
+    <tr><td>21</td><td>Venus Theatre</td></tr>
+    <tr><td>22</td><td>Chembium Old Post Office</td></tr>
+    <tr><td>23</td><td>Lourde School</td></tr>
+    <tr><td>24</td><td>Mangalapuri</td></tr>
+    <tr><td>25</td><td>Jamalia</td></tr>
+    <tr><td>26</td><td>Mettupalayam</td></tr>
+    <tr><td>27</td><td>Pulianthope</td></tr>
+    <tr><td>28</td><td>Pattalam</td></tr>
+    <tr><td>29</td><td>Vasanthi Theatre</td></tr>
+    <tr><td>30</td><td>Veterinary Hospital</td></tr>
+    <tr><td>31</td><td>Periyamedu</td></tr>
+    <tr><td>32</td><td>Central Station</td></tr>
+    <tr><td>33</td><td>Nurse Quarters</td></tr>
+    <tr><td>34</td><td>Chennai Fort Railway Station</td></tr>
+    <tr><td>35</td><td>High Court</td></tr>
+    <tr><td>36</td><td>Broadway</td></tr>
 </table>
 
         </div>
@@ -1235,7 +1310,6 @@
 
 
 
-
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="fa fa-arrow-up"></i></a>
 	</div>
@@ -1336,19 +1410,16 @@ $('#simply-countdown-losange').simplyCountdown({
 });
 
 function submitForm() {
-
-	if ( document.getElementById("name").value == '' || document.getElementById("email").value == '' ) {
-
-Swal.fire({
-    icon: 'error', 
-    title: 'Error!',
-    html: '<p style="color: red;font-size:18px">Form ah fill panunga please.</p>',
-    confirmButtonText: 'OK',
-    width: '600px',
-    height: '500px'
-});
-
-	} else {
+    if (document.getElementById("name").value === '' || document.getElementById("email").value === '') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            html: '<p style="color: red;font-size:18px">Form ah fill panunga please.</p>',
+            confirmButtonText: 'OK',
+            width: '600px',
+            height: '500px'
+        });
+    } else {
 
     let formData = {
         name: document.getElementById("name").value,
