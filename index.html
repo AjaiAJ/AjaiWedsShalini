@@ -1351,7 +1351,7 @@
 <script src="js/main.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        fetch("http://api.weatherapi.com/v1/forecast.json?q=13.191834,80.189463&days=8&key=f02391c2d66449a79e550043252008")
+        fetch("https://api.weatherapi.com/v1/forecast.json?q=13.191834,80.189463&days=8&key=f02391c2d66449a79e550043252008")
             .then(response => response.json())
             .then(data => {
                 const forecast = data.forecast.forecastday;
