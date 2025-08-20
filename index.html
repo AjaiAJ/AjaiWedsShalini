@@ -730,6 +730,21 @@
 	</div>
 
 
+<div id="fh5co-weather" class="fh5co-bg" style="background-image:url(images/img_bg_5.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+                <h2 class="text-white">Weather Forecast</h2>
+                <p class="text-white">Check the weather forecast for our wedding location</p>
+            </div>
+        </div>
+        <div id="weather-forecast" class="row d-flex justify-content-center">
+            <!-- Weather forecast will be injected here -->
+        </div>
+    </div>
+</div>
+
 
 
 <!-- The Modal -->
@@ -1339,6 +1354,53 @@
 	<script src="js/main.js"></script>
 
 	<script>
+
+		 document.addEventListener("DOMContentLoaded", function() {
+        fetch("http://api.weatherapi.com/v1/forecast.json?q=13.191834,80.189463&days=8&key=f02391c2d66449a79e550043252008")
+            .then(response => response.json())
+            .then(data => {
+                const forecast = data.forecast.forecastday;
+                let html = `
+                <div class='card shadow-lg' style='min-width:320px; max-width:800px; margin:auto;'>
+                  <div class='card-header bg-primary text-white text-center'>
+                    <h4 class='mb-0'>8-Day Weather Forecast</h4>
+                  </div>
+                  <div class='card-body p-0'>
+                    <div class='table-responsive'>
+                      <table class='table table-bordered mb-0 text-center align-middle'>
+                        <thead class='table-light'>
+                          <tr>
+                            <th>Date</th>
+                            <th>Max Temp (°C)</th>
+                            <th>Min Temp (°C)</th>
+                            <th>Avg Temp (°C)</th>
+                            <th>Max Wind (kph)</th>
+                            <th>Avg Humidity (%)</th>
+                            <th>Will it Rain?</th>
+                            <th>Chance of Rain (%)</th>
+                          </tr>
+                        </thead>
+                        <tbody>`;
+                forecast.forEach(day => {
+                    html += `<tr>
+                        <td>${day.date}</td>
+                        <td>${day.day.maxtemp_c}</td>
+                        <td>${day.day.mintemp_c}</td>
+                        <td>${day.day.avgtemp_c}</td>
+                        <td>${day.day.maxwind_kph}</td>
+                        <td>${day.day.avghumidity}</td>
+                        <td>${day.day.daily_will_it_rain ? 'Yes' : 'No'}</td>
+                        <td>${day.day.daily_chance_of_rain}%</td>
+                    </tr>`;
+                });
+                html += `</tbody></table></div></div></div>`;
+                document.getElementById('weather-forecast').innerHTML = html;
+            })
+            .catch(err => {
+                document.getElementById('weather-forecast').innerHTML = "<div class='alert alert-warning text-center w-100'>Weather data unavailable.</div>";
+            });
+    });
+
 
 function smoothScroll(targetId) {
     const target = document.getElementById(targetId);
